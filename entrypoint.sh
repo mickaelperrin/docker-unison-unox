@@ -7,7 +7,9 @@ if [ "$1" == 'supervisord' ]; then
 
     [ ! -d $UNISON_DIR ] && mkdir -p $UNISON_DIR
 
-    [ -z $UNISON_OWNER ] && UNISON_OWNER="unison"
+    [ -z $UNISON_OWNER ] && UNISON_OWNER="unison" && ENV_UNISON_OWNER="unison"
+
+    UNISON_OWNER_HOMEDIR=/home/$UNISON_OWNER
 
     if [ ! -z $UNISON_OWNER_UID ]; then
 
