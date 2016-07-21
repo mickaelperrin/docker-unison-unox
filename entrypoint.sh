@@ -5,17 +5,37 @@ if [ "$1" == 'supervisord' ]; then
 
     [ ! -d $UNISON_DIR ] && mkdir -p $UNISON_DIR
 
+    [ -z $UNISON_OWNER ] && UNISON_OWNER="unison"
+
     if [ ! -z $UNISON_OWNER_UID ]; then
 
-        mkdir -p /home/www-data
+        # If uid doesn't exist on the system
+        if ! cut -d: -f3 /etc/passwd | grep -q $UNISON_OWNER_UID; then
+            echo "no user has uid $UNISON_OWNER_UID"
 
-        [ ! $(id -u www-data) ] && adduser -h /home/www-data -u $UNISON_OWNER_UID -D www-data
+            # If user doesn't exist on the system
+            if ! cut -d: -f1 /etc/passwd | grep -q $UNISON_OWNER; then
+                user add -u $UNISON_OWNER_UID $UNISON_OWNER -m
+            else
+                usermod -u $UNISON_OWNER_UID $UNISON_OWNER
+            fi
+        else
+            echo "user with uid $UNISON_OWNER_UID already exist"
+            existing_user_with_uid=$(awk -F: "/:$UNISON_OWNER_UID:/{print \$1}" /etc/passwd)
+            mkdir -p /home/$UNISON_OWNER
+            usermod --home /home/$UNISON_OWNER --login $UNISON_OWNER $existing_user_with_uid
+            chown -R $UNISON_OWNER /home/$UNISON_OWNER
+        fi
+    else
+        if ! id $UNISON_OWNER; then
+            echo "adding user $UNISON_OWNNER".
+            user add -m $UNISON_OWNER
+        else
+            echo "user $UNISON_OWNNER already exists".
+        fi
+    fi
 
-        chown -R www-data $UNISON_DIR
-        chown -R www-data /home/www-data
-     else
-        UNISON_MANAGE_OWNER=""
-     fi
+    chown -R $UNISON_OWNER $UNISON_DIR
 
     # Check if a script is available in /docker-entrypoint.d and source it
     for f in /docker-entrypoint.d/*; do

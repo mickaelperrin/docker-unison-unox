@@ -16,6 +16,8 @@ RUN apk add --no-cache build-base curl bash supervisor inotify-tools && \
     apk add --no-cache libgcc libstdc++ && \
     rm -rf /tmp/unison-${UNISON_VERSION}
 
+RUN apk add --no-cache --repository http://dl-4.alpinelinux.org/alpine/edge/testing/ shadow
+
 # These can be overridden later
 ENV TZ="Europe/Helsinki" \
     LANG="C.UTF-8" \
