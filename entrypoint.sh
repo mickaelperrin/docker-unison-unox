@@ -3,6 +3,8 @@ set -e
 
 if [ "$1" == 'supervisord' ]; then
 
+    [ -z $UNISON_DIR ] && UNISON_DIR="/data"
+
     [ ! -d $UNISON_DIR ] && mkdir -p $UNISON_DIR
 
     [ -z $UNISON_OWNER ] && UNISON_OWNER="unison"
