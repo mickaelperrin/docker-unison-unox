@@ -19,7 +19,7 @@ if [ "$1" == 'supervisord' ]; then
 
             # If user doesn't exist on the system
             if ! cut -d: -f1 /etc/passwd | grep -q $UNISON_OWNER; then
-                user add -u $UNISON_OWNER_UID $UNISON_OWNER -m
+                useradd -u $UNISON_OWNER_UID $UNISON_OWNER -m
             else
                 usermod -u $UNISON_OWNER_UID $UNISON_OWNER
             fi
@@ -33,7 +33,7 @@ if [ "$1" == 'supervisord' ]; then
     else
         if ! id $UNISON_OWNER; then
             echo "adding user $UNISON_OWNNER".
-            user add -m $UNISON_OWNER
+            useradd -m $UNISON_OWNER
         else
             echo "user $UNISON_OWNNER already exists".
         fi
