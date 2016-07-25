@@ -15,6 +15,7 @@ You can configure how unison runs by using the following ENV variables:
  - `UNISON_DIR` specifies the directory created in the container to store the synced files, `/data` by default
  - `UNISON_OWNER` specifies **the user name** on which the unison process run and the owner of the synced files
  - `UNISON_OWNER_UID` specifies **the ID of the user** on which the unison process run and the owner of the synced files.
+ - `MAX_INOTIFY_WATCHES` increases the limit of inotify watches if you need to sync folders with lots of files. 
 
 ## Credits
 - Big thanks at [mickaelperrin](https://github.com/mickaelperrin) for putting hard work into getting this dualsync ready

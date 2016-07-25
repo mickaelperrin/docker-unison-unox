@@ -3,6 +3,10 @@ set -e
 
 if [ "$1" == 'supervisord' ]; then
 
+    # Increase the maximum watches for inotify for very large repositories to be watched
+    # Needs the privilegied docker option
+    [ ! -z $MAX_INOTIFY_WATCHES ] && echo fs.inotify.max_user_watches=$MAX_INOTIFY_WATCHES | tee -a /etc/sysctl.conf && sysctl -p || true
+
     [ -z $UNISON_DIR ] && export UNISON_DIR="/data"
 
     [ ! -d $UNISON_DIR ] && mkdir -p $UNISON_DIR
