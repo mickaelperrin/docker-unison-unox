@@ -18,6 +18,8 @@ RUN apk add --no-cache build-base curl bash supervisor inotify-tools && \
 
 RUN apk add --no-cache --repository http://dl-4.alpinelinux.org/alpine/edge/testing/ shadow
 
+RUN apk add --no-cache tzdata
+
 # These can be overridden later
 ENV TZ="Europe/Helsinki" \
     LANG="C.UTF-8" \

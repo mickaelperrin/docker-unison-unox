@@ -45,6 +45,12 @@ if [ "$1" == 'supervisord' ]; then
 
     chown -R $UNISON_OWNER $UNISON_DIR
 
+    # see https://wiki.alpinelinux.org/wiki/Setting_the_timezone
+    if [ -n ${TZ} ] && [ -f /usr/share/zoneinfo/${TZ} ]; then
+        ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
+        echo ${TZ} > /etc/timezone
+    fi
+
     # Check if a script is available in /docker-entrypoint.d and source it
     for f in /docker-entrypoint.d/*; do
         case "$f" in
