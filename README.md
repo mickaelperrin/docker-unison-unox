@@ -1,7 +1,7 @@
 ## Usage
 
 This image is the unison-image for [docker-sync](https://github.com/EugenMayer/docker-sync) and published on [eugenmayer/unison-unox](https://hub.docker.com/r/eugenmayer/unison-unox/)
-Most of  the credits go to [mickaelperrin](https://github.com/mickaelperrin) - he done most of the work including the dualsync basics.
+The credits go to [mickaelperrin](https://github.com/mickaelperrin) - all the work has been done by him.
 
 ## What does it do ?
 
@@ -18,8 +18,7 @@ You can configure how unison runs by using the following ENV variables:
  - `MAX_INOTIFY_WATCHES` increases the limit of inotify watches if you need to sync folders with lots of files. 
 
 ## Credits
-- Big thanks at [mickaelperrin](https://github.com/mickaelperrin) for putting hard work into getting this dualsync ready
-- Thank to [onnimonni](https://github.com/onnimonni) wich was initially the base of this image
+- Big thanks at [mickaelperrin](https://github.com/mickaelperrin) for putting hard work into getting unox 'production' ready
 
 ## License
 What the others did, so:
